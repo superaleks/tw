@@ -5,12 +5,10 @@ import java.util.List;
 public class Helper {
 
     public static void main(String[] args) throws InterruptedException {
-        String passphrase = "jelly ceiling absent erode cart curious wrong honey canvas bracket tray few";
+        String passphrase = "pause coconut bulk much stuff horror mystery modify army raccoon inject cost";
         System.out.println(extractPassPhrase(passphrase));
 
     }
-
-
     public static List<String> extractPassPhrase(String str) {
         List<String> list = new ArrayList<String>(Arrays.asList(str
                 .split("[,\\s+]")));
