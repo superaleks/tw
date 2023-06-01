@@ -34,7 +34,10 @@ public class SeleniumTest {
         createPassword.sendKeys(password);
 
         WebElement confirmPassword = driver.findElement(By.xpath("//input[@data-testid='confirm=password"));
-        createPassword.sendKeys(password);
+        confirmPassword.sendKeys(password);
+
+        WebElement termsCheckbox = driver.findElement(By.xpath("//input[@data-testid='confirm=password"));
+        termsCheckbox.click();
 
     }
 }
