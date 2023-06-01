@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ExtractWords {
+public class Helper {
 
     public static void main(String[] args) throws InterruptedException {
-        String passphrase = "media room zone beach price result forget rich mention answer smile toddler";
+        String passphrase = "jelly ceiling absent erode cart curious wrong honey canvas bracket tray few";
         System.out.println(extractPassPhrase(passphrase));
 
     }

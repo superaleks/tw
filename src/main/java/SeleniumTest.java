@@ -1,11 +1,13 @@
-import java.io.File;
-import java.util.ArrayList;
-
 import graphql.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 public class SeleniumTest {
 
     public static void main(String[] args) throws InterruptedException {
@@ -51,5 +53,19 @@ public class SeleniumTest {
 
         nextButton.click();
 
+        List<String> passphrase = Helper.extractPassPhrase(secretPhrase);
+
+        for(int i=0;i<=20;i++) {
+            driver.findElement(By.xpath("//input[data-testid='" + passphrase.get(i) + "-selectable'")).click();
+        }
+        nextButton.click();
+        nextButton.click();
+
+        WebElement openWallet = driver.findElement(By.xpath("//button[@data-testid='open-wallet-button'"));
+        openWallet.click();
+
+        nextButton.click();
+        Assert.assertTrue(driver.findElement(By.xpath("//button[@data-testid='next-button'")).getText().contains("I'm ready to use Trust Wallet!"));
+        nextButton.click();
     }
 }
