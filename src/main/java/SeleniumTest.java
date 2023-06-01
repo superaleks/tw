@@ -1,6 +1,7 @@
 import java.io.File;
 import java.util.ArrayList;
 
+import graphql.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,16 +29,27 @@ public class SeleniumTest {
         WebElement createNewWallet = driver.findElement(By.xpath("//input[@data-testid='create-new-wallet']"));
         createNewWallet.click();
 
-
         // Create password test
         WebElement createPassword = driver.findElement(By.xpath("//input[@data-testid='password']"));
         createPassword.sendKeys(password);
 
-        WebElement confirmPassword = driver.findElement(By.xpath("//input[@data-testid='confirm=password"));
+        WebElement confirmPassword = driver.findElement(By.xpath("//input[@data-testid='confirm-password"));
         confirmPassword.sendKeys(password);
 
-        WebElement termsCheckbox = driver.findElement(By.xpath("//input[@data-testid='confirm=password"));
+        WebElement termsCheckbox = driver.findElement(By.xpath("//input[@data-testid='terms-checkbox"));
         termsCheckbox.click();
+
+        WebElement nextButton = driver.findElement(By.xpath("//button[@data-testid='next-button'"));
+        nextButton.click();
+        Assert.assertTrue(driver.findElement(By.xpath("//a[@data-testid='next-button'")).isDisplayed());
+
+        nextButton.click();
+        nextButton.click();
+
+        WebElement getSecredPhrase = driver.findElement(By.id("canvas"));
+        String secretPhrase = getSecredPhrase.getText();
+
+        nextButton.click();
 
     }
 }
