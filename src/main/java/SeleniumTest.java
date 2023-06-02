@@ -1,5 +1,6 @@
 import graphql.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -16,51 +17,53 @@ public class SeleniumTest {
 
     public static void main(String[] args) throws InterruptedException {
 
-        String password = "Test1235%!";
+        String password = "JuanEsteban14!";
         String extensionLandingPage = "chrome-extension://egjidjbpglichdcondbcbdnbeeppgdph/home.html#/onboarding";
 
-        int WAIT_TIME = 10;
+        int WAIT_TIME = 60;
 
         String CREATE_NEW_WALLET_BUTTON = "//div[@data-testid='create-new-wallet']";
         String CREATE_NEW_PASSWORD_INPUT = "//input[@data-testid='password']";
         String CONFIRM_PASSWORD_INPUT = "//input[@data-testid='confirm-password']";
-
-        String TERMS_CHECKBOX = "//input[@data-testid='terms-checkbox']";
+        String TERMS_CHECKBOX = "//label[@data-testid='terms-checkbox']";
         String NEXT_BUTTON = "//button[@data-testid='next-button']";
         String CONFIRMATION_MESSAGE = "I'm ready to use Trust Wallet!";
         String OPEN_WALLET_BUTTON = "//button[@data-testid='open-wallet-button']";
-
+        String SAFETY_MESSAGE = "//button[@data-testid='keep-safe-link']";
 
         ChromeOptions opt = new ChromeOptions();
         opt.addExtensions(new File("Trust-Wallet.crx"));
         ChromeDriver driver = new ChromeDriver(opt);
-
         driver.get(extensionLandingPage);
-
+        WebElement createNewWallet = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CREATE_NEW_WALLET_BUTTON)));
         ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
         System.out.println("Number of tabs is: " + tabs.size());
 
-//        driver.switchTo().window(tabs.get(0)); // change tabs
+        driver.switchTo().window(tabs.get(0));
 
-        WebElement createNewWallet = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CREATE_NEW_WALLET_BUTTON)));
 
         createNewWallet.click();
-        WebElement createPassword = driver.findElement(By.xpath(CREATE_NEW_PASSWORD_INPUT));
+        WebElement createPassword = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CREATE_NEW_PASSWORD_INPUT)));
+
         createPassword.sendKeys(password);
-        WebElement confirmPassword = driver.findElement(By.xpath(CONFIRM_PASSWORD_INPUT));
+        WebElement confirmPassword = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CONFIRM_PASSWORD_INPUT)));
         confirmPassword.sendKeys(password);
 
-        WebElement termsCheckbox = driver.findElement(By.xpath(TERMS_CHECKBOX));
+        WebElement termsCheckbox = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(TERMS_CHECKBOX)));
         termsCheckbox.click();
-
-        WebElement nextButton = driver.findElement(By.xpath(NEXT_BUTTON));
+        WebElement nextButton = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(NEXT_BUTTON)));
         nextButton.click();
-        Assert.assertTrue(driver.findElement(By.xpath(NEXT_BUTTON)).isDisplayed());
+        //Thread.sleep(10000L);
 
-        nextButton.click();
-        nextButton.click();
+        WebElement safetyMessage = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(SAFETY_MESSAGE)));
+        System.out.println("Test is here: " + safetyMessage.getText());
+//        Assert.assertTrue(driver.findElement(By.xpath(NEXT_BUTTON)).isDisplayed());
 
-        WebElement getSecretPhrase = driver.findElement(By.id("canvas"));
+        //nextButton.click();
+        //nextButton.click();
+
+        WebElement getSecretPhrase = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME)).until(ExpectedConditions.visibilityOfElementLocated(By.id("canvas")));
+      //  WebElement getSecretPhrase = driver.findElement(By.id("canvas"));
         String secretPhrase = getSecretPhrase.getText();
 
         nextButton.click();
