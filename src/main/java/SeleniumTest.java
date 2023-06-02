@@ -21,13 +21,14 @@ public class SeleniumTest {
 
         int WAIT_TIME = 10;
 
-        String CREATE_NEW_WALLET_BUTTON = "//input[@data-testid='create-new-wallet']";
+        String CREATE_NEW_WALLET_BUTTON = "//div[@data-testid='create-new-wallet']";
         String CREATE_NEW_PASSWORD_INPUT = "//input[@data-testid='password']";
-        String CONFIRM_PASSWORD_INPUT = "//input[@data-testid='confirm-password";
-        String TERMS_CHECKBOX = "//input[@data-testid='terms-checkbox";
-        String NEXT_BUTTON = "//button[@data-testid='next-button'";
+        String CONFIRM_PASSWORD_INPUT = "//input[@data-testid='confirm-password']";
+
+        String TERMS_CHECKBOX = "//input[@data-testid='terms-checkbox']";
+        String NEXT_BUTTON = "//button[@data-testid='next-button']";
         String CONFIRMATION_MESSAGE = "I'm ready to use Trust Wallet!";
-        String OPEN_WALLET_BUTTON = "//button[@data-testid='open-wallet-button'";
+        String OPEN_WALLET_BUTTON = "//button[@data-testid='open-wallet-button']";
 
 
         ChromeOptions opt = new ChromeOptions();
@@ -39,9 +40,9 @@ public class SeleniumTest {
         ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
         System.out.println("Number of tabs is: " + tabs.size());
 
-        driver.switchTo().window(tabs.get(0)); // change tabs
+//        driver.switchTo().window(tabs.get(0)); // change tabs
 
-        WebElement createNewWallet = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME)).until(ExpectedConditions.elementToBeClickable(By.xpath(CREATE_NEW_WALLET_BUTTON)));
+        WebElement createNewWallet = new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CREATE_NEW_WALLET_BUTTON)));
 
         createNewWallet.click();
         WebElement createPassword = driver.findElement(By.xpath(CREATE_NEW_PASSWORD_INPUT));
